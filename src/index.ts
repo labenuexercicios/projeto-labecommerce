@@ -1,85 +1,39 @@
-import express, { Request, Response } from 'express'
-import cors from 'cors';
-import { products, purchases, users } from './database';
-import { TProduct, TUser, CATEGORY, TPurchase } from './types';
+import express from "express";
+import cors from "cors";
+import { getAllUsers } from "./endpoints/getAllUsers";
+import { getAllProducts } from "./endpoints/getAllProducts";
+import { getSearchProductByName } from "./endpoints/getSearchProductByName";
+import { postNewUser } from "./endpoints/postNewUser";
+import { postNewPurchase } from "./endpoints/postNewPurchase";
+import { postNewProduct } from "./endpoints/postNewProduct";
+import { getProductsById } from "./endpoints/getProductsById";
+import { getUserPurchasesByUserId } from "./endpoints/getUserPurchasesByUserId";
+import { deleteUserById } from "./endpoints/deleteUserById";
+import { deleteProductById } from "./endpoints/deleteProductById";
+import { putEditUserById } from "./endpoints/putEditUserId";
+import { putEditProductById } from "./endpoints/putEditProductById";
+
 
 const app = express();
 app.use(express.json());
+
 app.use(cors());
 
 app.listen(3003, () => {
   console.log("Servidor rodando na porta 3003");
 });
 
-app.get("/users", (req: Request, res: Response) => {
-  res.status(200).send(users);
-})
+app.get("/users", getAllUsers);
+app.post("/users", postNewUser);
+app.delete("/users/:id", deleteUserById);
+app.put("/users/:id", putEditUserById);
 
-app.post("/users", (req: Request, res: Response) => {
-  const { id, email, password } = req.body
+app.get("/products", getAllProducts);
+app.get("/product/search", getSearchProductByName);
+app.get("/products/:id", getProductsById);
+app.post("/products", postNewProduct);
+app.delete("/products/:id", deleteProductById);
+app.put("/products/:id", putEditProductById);
 
-  if (typeof id !== "string") {
-    return res.status(400).send("ID tem que ser string");
-  }
-  if (typeof email !== "string") {
-    return res.status(400).send("E-mail tem que ser string");
-  }
-  if (typeof password !== "string") {
-    return res.status(400).send("A senha tem que ser string");
-  }
-
-  const existingUserById = users.find(user => user.id === id);
-
-  if (existingUserById) {
-    res.status(400).send("Não é possível criar mais de uma conta com a mesma id.");
-    return;
-  }
-  const existingUserByEmail = users.find(user => user.email === email);
-
-  if (existingUserByEmail) {
-    res.status(400).send("Não é possível criar mais de uma conta com o mesmo e-mail.");
-    return;
-  }
-
-  const newUser: TUser = { id, email, password };
-  users.push(newUser);
-  res.status(201).send({ message: "Cadastro realizado com sucesso", newUser });
-
-})
-
-app.get("/products", (req: Request, res: Response) => {
-  res.status(200).send({message:"Lista de produtos atualizada", products});
-})
-
-app.post("/products", (req: Request, res: Response) => {
-  const { id, name, price, category } = req.body
-
-  if (typeof id !== "string") {
-    return res.status(400).send("id tem que ser string")
-  }
-  if (typeof price !== "number") {
-    return res.status(400).send("O preço tem que ser number")
-
-  }
-  if (typeof name !== "string") {
-    return res.status(400).send("O nome tem que ser string")
-  }
-
-  const productIdFound = products.find((product) => product.id === id);
-  if (productIdFound) {
-    return res.status(400).send("ID de produto já cadastrado");
-  }
-  const productNameFound = products.find((product) => product.name === name);
-  if (productNameFound) {
-    return res.status(400).send("O nome do produto já cadastrado");
-  }
-
-
-  const newProduct: TProduct = { id, name, price, category };
-  products.push(newProduct);
-  res.status(201).send({ message: "Produto criado com sucesso", newProduct });
-})
-
-
-
-
+app.post("/purchases", postNewPurchase);
+app.get("/users/:id/purchases", getUserPurchasesByUserId);
