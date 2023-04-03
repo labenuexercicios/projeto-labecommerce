@@ -9,7 +9,7 @@ export const postNewUser = (req: Request, res: Response) => {
     return res.status(400).send("ID tem que ser string");
   }
   if (typeof email !== "string") {
-    return res.status(400).send("O nome tem que ser string");
+    return res.status(400).send("O email tem que ser string");
   }
   if (typeof password !== "string") {
     return res.status(400).send("A senha tem que ser string");

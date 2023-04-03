@@ -12,7 +12,7 @@ export const postNewProduct = (req: Request, res: Response) => {
     return res.status(400).send("O nome tem que ser string");
   }
   if (typeof price !== "number") {
-    return res.status(400).send("A senha tem que ser string");
+    return res.status(400).send("O preço tem que ser number");
   }
 
   const productIdFound = products.find((product) => product.id === id);
