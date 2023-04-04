@@ -57,17 +57,3 @@ VALUES (
         299.9,
         "Eletrônicos"
     );
-UPDATE products
-SET
-    category = "Roupas e calçados"
-WHERE id = 1;
-
-UPDATE products SET category = "Roupas e calçados" WHERE id = 2;
-
-UPDATE products SET category = "Acessórios" WHERE id = 3;
-
-DELETE FROM products WHERE id = 1;
-
-DELETE FROM products WHERE id = 2;
-
-DELETE FROM products WHERE id = 3;
