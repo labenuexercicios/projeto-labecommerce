@@ -5,8 +5,8 @@ import { TUser } from "../types";
 export const postNewUser = (req: Request, res: Response) => {
   const { id, email, password } = req.body;
 
-  if (typeof id !== "string") {
-    return res.status(400).send("ID tem que ser string");
+  if (typeof id !== "number") {
+    return res.status(400).send("ID tem que ser number");
   }
   if (typeof email !== "string") {
     return res.status(400).send("O email tem que ser string");

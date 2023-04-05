@@ -3,6 +3,9 @@ import { users } from "../database";
 
 export const deleteUserById = (req: Request, res: Response) => {
   const id = req.params.id;
+  if (typeof id !== "number") {
+    return res.status(400).send("ID tem que ser number");
+  }
 
   const indexUserToDelete = users.findIndex((user) => user.id === id);
 

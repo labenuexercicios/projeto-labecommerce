@@ -5,7 +5,7 @@ enum CATEGORY {
 }
 
 type TUser = {
-  id: string
+  id: number
   email: string
   password: string
 }
@@ -18,7 +18,7 @@ type TProduct = {
 }
 
 type TPurchase = {
-  userId: string
+  userId: number
   productId: string
   quantity: number
   totalPrice: number

@@ -5,8 +5,8 @@ import { TProduct, TPurchase, TUser } from "../types";
 export const postNewPurchase = (req: Request, res: Response) => {
   const { userId, productId, quantity } = req.body;
 
-  if (typeof userId !== "string") {
-    return res.status(400).send("ID tem que ser string");
+  if (typeof userId !== "number") {
+    return res.status(400).send("ID tem que ser number");
   }
   if (typeof productId !== "string") {
     return res.status(400).send("O nome tem que ser string");

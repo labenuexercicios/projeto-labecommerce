@@ -2,12 +2,12 @@ import { CATEGORY, TProduct, TPurchase, TUser } from './types'
 
 const users: TUser[] = [
   {
-    id: 'u001',
+    id: 1,
     email: 'clara@gmail.com',
     password: 'clara123',
   },
   {
-    id: 'u002',
+    id: 2,
     email: 'carlos@gmail.com',
     password: 'carlos123',
   },
@@ -22,7 +22,7 @@ const products: TProduct[] = [
       category: CATEGORY.CLOTHES_AND_SHOES,
     },
     {
-      id: 'p002',
+      id: '2',
       name: 'sneakers',
       price: 199.9,
       category: CATEGORY.CLOTHES_AND_SHOES,
