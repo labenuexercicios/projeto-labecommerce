@@ -4,12 +4,12 @@ const users: TUser[] = [
   {
     id: 1,
     email: 'clara@gmail.com',
-    password: 'clara123',
+    password: 'clara1',
   },
   {
     id: 2,
     email: 'carlos@gmail.com',
-    password: 'carlos123',
+    password: 'carlos2',
   },
 ]
 

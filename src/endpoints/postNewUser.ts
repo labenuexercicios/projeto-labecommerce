@@ -3,34 +3,50 @@ import { users } from "../database";
 import { TUser } from "../types";
 
 export const postNewUser = (req: Request, res: Response) => {
-  const { id, email, password } = req.body;
+  try {
+    const { id, email, password } = req.body;
 
-  if (typeof id !== "number") {
-    return res.status(400).send("ID tem que ser number");
-  }
-  if (typeof email !== "string") {
-    return res.status(400).send("O email tem que ser string");
-  }
-  if (typeof password !== "string") {
-    return res.status(400).send("A senha tem que ser string");
-  }
+    if (!id || !email || !password) {
+      return res.status(400).send("ID, Email e senha são obrigatórios");
+    }
 
-  const userIdFound = users.find((user) => user.id === id);
-  if (userIdFound) {
-    return res.status(400).send("id de usuário já cadastrado");
+    if (typeof id !== "number") {
+      throw new Error("ID deve ser um número");
+    }
+    const userIdFound = users.find((user) => user.id === id);
+    if (userIdFound) {
+      throw new Error("O ID de usuário já existe");
+    }
+    if (typeof email !== "string") {
+      throw new Error("Email deve ser uma string");
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      throw new Error("O email digitado é inválido");
+    }
+    const userEmailFound = users.find((user) => user.email === email);
+    if (userEmailFound) {
+      throw new Error("O email já existe");
+    }
+    if (typeof password !== "string") {
+      throw new Error("Senha deve ser uma string");
+    }
+    if (!/^\d{6}$/.test(password)) {
+      throw new Error("A senha deve ter 6 dígitos");
+    }
+
+    const newUser: TUser = {
+      id,
+      email,
+      password,
+    };
+
+    users.push(newUser);
+
+    res
+      .status(201)
+      .send({ message: "Usuário cadastrado com sucesso", newUser });
+  } catch (err: any) {
+    res.status(400).send(err.message);
   }
-  const userEmailFound = users.find((user) => user.email === email);
-  if (userEmailFound) {
-    return res.status(400).send("email de usuário já existe cadastrado");
-  }
-
-  const newUser: TUser = {
-    id,
-    email,
-    password,
-  };
-
-  users.push(newUser);
-
-  res.status(201).send({ mensage: "Usuário cadastrado com sucesso", newUser });
 };

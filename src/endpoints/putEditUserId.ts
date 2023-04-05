@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { users } from "../database";
 
-
 export const putEditUserById = (req: Request, res: Response) => {
   try {
     const id = req.params.id;

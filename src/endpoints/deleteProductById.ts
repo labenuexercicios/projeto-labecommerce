@@ -2,17 +2,25 @@ import { Request, Response } from "express";
 import { products } from "../database";
 
 export const deleteProductById = (req: Request, res: Response) => {
-  const id = req.params.id;
+  try {
+    const id = req.params.id;
 
-  const indexProductToDelete = products.findIndex(
-    (product) => product.id === id
-  );
+    if (!Number.isInteger(Number(id))) {
+      throw new Error("ID inválido");
+    }
 
-  if (indexProductToDelete < 0) {
-    return res.status(400).send("Produto não cadastrado");
+    const indexProductToDelete = products.findIndex(
+      (product) => product.id === id
+    );
+
+    if (indexProductToDelete < 0) {
+      throw new Error("Produto não cadastrado");
+    }
+
+    products.splice(indexProductToDelete, 1);
+
+    res.status(200).send("Produto apagado com sucesso");
+  } catch (error:any) {
+    res.status(400).send(error.message);
   }
-
-  products.splice(indexProductToDelete, 1);
-
-  res.status(200).send("Produto apagado com sucesso");
 };
