@@ -1,27 +1,34 @@
 enum CATEGORY {
-  ACCESSORIES = 'Acessórios',
-  CLOTHES_AND_SHOES = 'Roupas e calçados',
-  ELECTRONICS = 'Eletrônicos',
+  ACCESSORIES = "Acessórios",
+  CLOTHES_AND_SHOES = "Roupas e calçados",
+  ELECTRONICS = "Eletrônicos"
 }
 
 type TUser = {
-  id: number
-  email: string
-  password: string
-}
+  id: string;
+  name: string;
+  email: string;
+  password: string;
+};
 
 type TProduct = {
   id: string
   name: string
   price: number
-  category: CATEGORY
+  category: string
+  description: string
+  imageUrl: string
 }
 
 type TPurchase = {
-  userId: number
-  productId: string
-  quantity: number
-  totalPrice: number
+  userId: string
+  id: string
+  paid: number
+  delivered_at: string
+  total_price: number
 }
 
-export {TUser, TProduct, TPurchase, CATEGORY}
+
+
+
+export { TUser, TProduct, TPurchase, CATEGORY}

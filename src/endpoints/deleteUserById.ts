@@ -1,24 +1,32 @@
 import { Request, Response } from "express";
-import { users } from "../database";
+import { db } from "../database/knex";
 
-export const deleteUserById = (req: Request, res: Response) => {
+export const deleteUserById = async (req: Request, res: Response) => {
+  const id = req.params.id;
+
   try {
-    const id = req.params.id;
+    const user = await db("users").where({ id }).first();
 
-    if (!Number.isInteger(Number(id))) {
-      throw new Error("ID inválido");
+    if (!user) {
+      return res.status(404).send("Usuário não encontrado");
     }
 
-    const indexUserToDelete = users.findIndex((user) => user.id === parseInt(id));
+    // Deletar as compras do usuário
+    await db("orders").where({ user_id: id }).delete();
 
-    if (indexUserToDelete < 0) {
-      throw new Error("Usuário não cadastrado");
+    await db("users").where({ id }).delete();
+    res.status(200).send("Usuário deletado com sucesso");
+  } catch (error) {
+    console.log(error);
+
+    if (req.statusCode === 200) {
+      res.status(500);
     }
 
-    users.splice(indexUserToDelete, 1);
-
-    res.status(200).send("Usuário apagado com sucesso");
-  } catch (error:any) {
-    res.status(400).send(error.message);
+    if (error instanceof Error) {
+      res.send(error.message);
+    } else {
+      res.send("Erro inesperado");
+    }
   }
 };

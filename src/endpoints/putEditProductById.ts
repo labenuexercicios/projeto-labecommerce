@@ -1,18 +1,31 @@
 import { Request, Response } from "express";
-import { products } from "../database";
 import { CATEGORY, TProduct } from "../types";
+import { db } from "../database/knex";
 
-export const putEditProductById = (req: Request, res: Response) => {
+export const putEditProductById = async (req: Request, res: Response) => {
   try {
     const id = req.params.id;
+    const name = req.params.name;
 
-    const verificationID = products.findIndex((product) => product.id === id);
+    const [productIdAlreadyExists]: TProduct[] | undefined[] = await db(
+      "products"
+    ).where({ id }).andWhereNot({ name });
 
-    if (verificationID < 0) {
-      return res.status(400).send("O produto não está cadastrado");
+    if (!productIdAlreadyExists) {
+      res.status(404);
+      throw new Error("O ID não existe");
     }
 
-    const { name, price, category } = req.body;
+    const [productNameAlreadyExists]: TProduct[] | undefined[] = await db(
+      "products"
+    ).where({ name }).andWhereNot({ id });
+
+    if (!productNameAlreadyExists) {
+      res.status(404);
+      throw new Error("O Nome não existe");
+    }
+
+    const { price, category, description } = req.body;
 
     if (!name && !price && !category) {
       return res.status(400).send("Digite a modificação");
@@ -23,9 +36,10 @@ export const putEditProductById = (req: Request, res: Response) => {
         throw new Error("O nome tem que ser uma string");
       }
 
-      const cleanName = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+      const cleanName =
+        name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
 
-      products[verificationID].name = cleanName;
+      await db("products").update({ name: cleanName }).where({ id: id });
     }
 
     if (price) {
@@ -33,19 +47,29 @@ export const putEditProductById = (req: Request, res: Response) => {
         throw new Error("O preço tem que ser um número");
       }
 
-      products[verificationID].price = price;
+      await db("products").update({ price: price }).where({ id: id });
     }
 
     if (category) {
       if (!Object.values(CATEGORY).includes(category)) {
-        throw new Error("A categoria é inválida");
+        throw new Error("A categoria informada não existe");
       }
 
-      products[verificationID].category = category;
+      await db("products").update({ category: category }).where({ id: id });
     }
 
-    res.status(200).send({ mensagem: "Produto atualizado com sucesso" });
-  } catch (error: any) {
-    res.status(400).send(error.message);
+ res.status(200).send({ mensagem: "Produto atualizado com sucesso" });
+  } catch (error) {
+    console.log(error);
+
+    if (res.statusCode === 200) {
+      res.statusCode = 500;
+    }
+
+    if (error instanceof Error) {
+      res.send(error.message);
+    } else {
+      res.send("erro inesperado");
+    }
   }
 };

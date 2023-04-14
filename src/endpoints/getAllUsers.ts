@@ -1,14 +1,28 @@
 import { Request, Response } from "express";
-import { users } from "../database";
+import { db } from "../database/knex";
 
-export const getAllUsers = (req: Request, res: Response) => {
+export const getAllUsers = async (req: Request, res: Response) => {
   try {
-    if (!users || users.length === 0) {
-      throw new Error("Nenhum usuário cadastrado");
-    }
+      const searchTerm = req.query.q as string | undefined
 
-    res.status(200).send({ message: "Usuários cadastrados", users });
-  } catch (error:any) {
-    res.status(500).send({ message: "Erro ao buscar usuários", error });
+      if (searchTerm === undefined) {
+          const result = await db("users")
+          res.status(200).send(result)
+      } else {
+          const result = await db("users").where("name", "LIKE", `%${searchTerm}%`)
+          res.status(200).send(result)
+      }
+  } catch (error) {
+      console.log(error)
+
+      if (res.statusCode === 200) {
+          res.status(500)
+      }
+
+      if (error instanceof Error) {
+          res.send(error.message)
+      } else {
+          res.send("Erro inesperado")
+      }
   }
-};
+}
