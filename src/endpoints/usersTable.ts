@@ -1,4 +1,4 @@
-import { db } from "../database/knex";
+/* import { db } from "../database/knex";
 
 export const createUsersTable = async () => {
   try {
@@ -39,4 +39,4 @@ export const populateUsersTable = async () => {
   } catch (error) {
     console.error("Erro ao popular tabela de usuários:", error);
   }
-};
+}; */

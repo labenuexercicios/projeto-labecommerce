@@ -10,11 +10,9 @@ import { deleteUserById } from "./endpoints/deleteUserById";
 import { deleteProductById } from "./endpoints/deleteProductById";
 import { putEditUserById } from "./endpoints/putEditUserId";
 import { putEditProductById } from "./endpoints/putEditProductById";
-/* import { postNewPurchase } from "./endpoints/postNewPurchase";
-import { getUserPurchasesByUserId } from "./endpoints/getUserPurchasesByUserId"; */
-import {createUsersTable, populateUsersTable} from "./endpoints/usersTable"
-import { createProductsTable, populateProductsTable } from "./endpoints/productsTable";
-import { createPurchasesTable } from "./endpoints/purchaseTable";
+import { createPurchase } from "./endpoints/createPurchase";
+import { getUserPurchaseById } from "./endpoints/getUserPurchaseById";
+import { getAllPurchase } from "./endpoints/getAllpurchase";
 
 const app = express();
 app.use(express.json());
@@ -23,11 +21,6 @@ app.use(cors());
 
 app.listen(3003, async () => {
   console.log("Servidor rodando na porta 3003");
-  await createUsersTable();
-  await populateUsersTable();
-  await createProductsTable;
-  await populateProductsTable();
-  await createPurchasesTable();
 });
 
 app.post("/users", createUser); //ok
@@ -42,6 +35,8 @@ app.post("/products", createProduct); //ok
 app.delete("/products/:id", deleteProductById);//ok
 app.put("/products/:id", putEditProductById);//ok
 
-/* app.post("/purchases", postNewPurchase);
-app.get("/users/:id/purchases", getUserPurchasesByUserId);
- */
+
+app.get("/purchase", getAllPurchase)
+
+app.post("/purchases", createPurchase);
+app.get("/users/:id/purchases", getUserPurchaseById);

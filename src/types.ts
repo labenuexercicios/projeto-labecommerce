@@ -20,15 +20,7 @@ type TProduct = {
   imageUrl: string
 }
 
-type TPurchase = {
-  userId: string
-  id: string
-  paid: number
-  delivered_at: string
-  total_price: number
-}
 
 
 
-
-export { TUser, TProduct, TPurchase, CATEGORY}
+export { TUser, TProduct, CATEGORY}

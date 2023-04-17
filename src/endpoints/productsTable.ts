@@ -1,4 +1,4 @@
-import { db } from "../database/knex";
+/* import { db } from "../database/knex";
 
 export const createProductsTable = async () => {
   try {
@@ -71,3 +71,4 @@ export const populateProductsTable = async () => {
   }
 };
 
+ */
