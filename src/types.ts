@@ -19,8 +19,18 @@ type TProduct = {
   description: string
   image_url: string
 }
+type TPurchase =
+  {
+    id: string;
+    buyer: string;
+    total_price: number;
+  };
+type TPurchaseProduct = {
+  purchase_id: string;
+  product_id: string;
+  quantity: number;
+};
 
 
 
-
-export { TUser, TProduct, CATEGORY}
+export { TUser, TProduct, TPurchase, TPurchaseProduct, CATEGORY }

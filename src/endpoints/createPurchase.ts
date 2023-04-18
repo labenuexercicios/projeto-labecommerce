@@ -1,101 +1,98 @@
 import { Request, Response } from "express";
 import { db } from "../database/knex";
-
-interface Product {
-  id: string;
-  quantity: number;
-}
-
-interface Purchase {
-  id: string;
-  userId: string;
-  products: Product[];
-}
+import { TPurchase, TPurchaseProduct } from "../types";
 
 export const createPurchase = async (req: Request, res: Response) => {
   try {
-    const { id, userId, products }: Purchase = req.body;
+    const { id, buyer, products } = req.body;
 
-    if (!id || !userId || !products) {
-      res.status(400).send("Preencha todos os campos obrigatórios.");
-      return;
+    if (!id.trim()) throw new Error("'id' não deve estar vazio");
+    if (typeof id !== "string") throw new Error("'id' deve ser string");
+
+    const purchaseIdExist = await db("purchases").where({ id }).first();
+    if (purchaseIdExist)
+      throw new Error("'id' já cadastrado, digite outro valor");
+
+    if (!buyer.trim()) throw new Error("'buyer' não deve estar vazio");
+    if (typeof buyer !== "string") throw new Error("'buyer' deve ser string");
+
+    const buyerExist = await db("users").where({ id: buyer }).first();
+    if (!buyerExist) throw new Error("Usuário não cadastrado");
+
+    if (products.length === 0)
+      throw new Error(
+        "'products' deve conter pelo menos um produto para que o pedido seja realizado"
+      );
+
+    for (let i in products) {
+      const { productId, quantity } = products[i];
+      if (typeof productId !== "string")
+        throw new Error(
+          `'productId' no indice ${i} do array products deve ser string`
+        );
+      if (typeof quantity !== "number")
+        throw new Error(
+          `'quantity' no indice ${i} do array products deve ser number`
+        );
+      if (quantity <= 0)
+        throw new Error(
+          `'quantity' no indice ${i} do array products deve ser maior que zero`
+        );
+
+      const productIdExist = await db("products")
+        .where({ id: productId })
+        .first();
+      if (!productIdExist)
+        throw new Error(
+          `'productId' no indice ${i} do array products não está cadastrado`
+        );
     }
 
-    if (typeof id !== "string") {
-      res.status(400).send("O campo ID deve ser uma string.");
-      return;
-    }
-
-    if (!id.match(/^\d{4}$/)) {
-      res.status(400).send("O ID deve conter 4 dígitos.");
-      return;
-    }
-
-    if (typeof userId !== "string") {
-      res.status(400).send("O campo UserID deve ser uma string.");
-      return;
-    }
-
-    const userExists = await db("users").where("id", userId);
-
-    if (!userExists.length) {
-      res.status(404).send("Usuário não encontrado.");
-      return;
-    }
-
-    const productsExist = await Promise.all(
-      products.map(async ({ id, quantity }) => {
-        const productExists = await db("product").where("id", id);
-
-        if (!productExists.length) {
-          res.status(404).send(`Produto ${id} não encontrado.`);
-          return;
-        }
-
-        if (typeof quantity !== "number" || quantity < 1) {
-          res
-            .status(400)
-            .send(
-              `A quantidade do produto ${id} deve ser um número maior que zero.`
-            );
-          return;
-        }
-
-        return { ...productExists[0], quantity };
-      })
+    const totalPricePromise = products.reduce(
+      async (
+        totalPricePromise: Promise<number>,
+        product: { productId: any; quantity: number }
+      ) => {
+        const [productPrice] = await db
+          .select("price")
+          .from("products")
+          .where({ id: product.productId });
+        const totalPriceAccumulated = await totalPricePromise;
+        return totalPriceAccumulated + productPrice.price * product.quantity;
+      },
+      Promise.resolve(0)
     );
 
-    if (productsExist.some((product) => !product)) {
-      return;
+    const totalPrice: number = await totalPricePromise;
+
+    const newPurchase: TPurchase = { id, buyer, total_price: await totalPrice };
+    await db("purchases").insert(newPurchase);
+
+    for (let product of products) {
+      const { productId, quantity } = product;
+
+      const purchasesProductExist = await db("purchases_products")
+        .where({ purchase_id: id, product_id: productId })
+        .first();
+
+      if (purchasesProductExist) {
+        await db("purchases_products")
+          .update({ quantity: purchasesProductExist.quantity + quantity })
+          .where({ purchase_id: id, product_id: productId });
+      } else {
+        const newPurchaseProduct: TPurchaseProduct = {
+          purchase_id: id,
+          product_id: productId,
+          quantity,
+        };
+        await db("purchases_products").insert(newPurchaseProduct);
+      }
     }
 
-    const totalPrice = productsExist.reduce(
-      (total, { price, quantity }) => total + price * quantity,
-      0
-    );
-
-    const purchase = {
-      id,
-      user_id: userId,
-      total_price: totalPrice,
-      paid: false,
-      delivered_at: null,
-    };
-
-    const purchaseProducts = productsExist.map(({ id, quantity }) => ({
-      purchase_id: purchase.id,
-      product_id: id,
-      quantity,
-    }));
-
-    await db.transaction(async (trx) => {
-      await trx("purchases").insert(purchase);
-      await trx("purchases_products").insert(purchaseProducts);
-    });
-
-    res.status(201).send("Compra realizada com sucesso.");
+    res.status(201).send({ message: "Pedido realizado com sucesso" });
   } catch (error) {
-    console.log(error);
-    res.status(500).send("Erro inesperado.");
+    res
+      .status(500)
+      .send(error instanceof Error ? error.message : "Erro inesperado");
   }
 };
