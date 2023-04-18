@@ -13,8 +13,8 @@ CREATE TABLE
         name TEXT NOT NULL,
         price REAL NOT NULL,
         category TEXT NULL,
-        description TEXT NOT NULL,
-        image_url TEXT NOT NULL
+        description TEXT NULL,
+        image_url TEXT NULL
     );
 
 CREATE TABLE

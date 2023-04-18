@@ -17,7 +17,7 @@ type TProduct = {
   price: number
   category: string
   description: string
-  imageUrl: string
+  image_url: string
 }
 
 

@@ -4,7 +4,7 @@ import { db } from "../database/knex";
 
 export const createProduct = async (req: Request, res: Response) => {
   try {
-    const { id, name, price, category, description, imageUrl } = req.body;
+    const { id, name, price, category, description, image_url } = req.body;
 
     if (!id || !name || !price) {
       return res.status(400).send("ID, nome e preço são obrigatórios");
@@ -46,7 +46,7 @@ export const createProduct = async (req: Request, res: Response) => {
       price,
       category,
       description,
-      imageUrl,
+      image_url
     };
 
     await db("products").insert(newProduct);

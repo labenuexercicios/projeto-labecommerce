@@ -5,29 +5,19 @@ import { db } from "../database/knex";
 export const putEditProductById = async (req: Request, res: Response) => {
   try {
     const id = req.params.id;
-    const name = req.params.name;
 
     const [productIdAlreadyExists]: TProduct[] | undefined[] = await db(
       "products"
-    ).where({ id }).andWhereNot({ name });
+    ).where({ id })
 
     if (!productIdAlreadyExists) {
       res.status(404);
       throw new Error("O ID não existe");
     }
 
-    const [productNameAlreadyExists]: TProduct[] | undefined[] = await db(
-      "products"
-    ).where({ name }).andWhereNot({ id });
+    const {name, price, category, description } = req.body;
 
-    if (!productNameAlreadyExists) {
-      res.status(404);
-      throw new Error("O Nome não existe");
-    }
-
-    const { price, category, description } = req.body;
-
-    if (!name && !price && !category) {
+    if (!name && !price) {
       return res.status(400).send("Digite a modificação");
     }
 

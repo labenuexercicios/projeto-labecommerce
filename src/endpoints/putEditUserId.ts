@@ -3,6 +3,7 @@ import { TUser } from "../types";
 import { db } from "../database/knex";
 
 export const putEditUserById = async (req: Request, res: Response) => {
+  console.log(putEditUserById)
   try {
     const id = req.params.id;
 
@@ -16,6 +17,8 @@ export const putEditUserById = async (req: Request, res: Response) => {
     }
 
     const { email, password } = req.body;
+    console.log(req.body);
+    
 
     if (!email && !password) {
       throw new Error("Digite a modificação");
@@ -55,4 +58,5 @@ export const putEditUserById = async (req: Request, res: Response) => {
       res.send("erro inesperado");
     }
   }
+  
 };

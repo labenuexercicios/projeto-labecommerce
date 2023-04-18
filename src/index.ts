@@ -25,7 +25,7 @@ app.listen(3003, async () => {
 
 app.post("/users", createUser); //ok
 app.get("/users", getAllUsers);//ok
-app.delete("/users/:id", deleteUserById); //np
+app.delete("/users/:id", deleteUserById); //ok
 app.put("/users/:id", putEditUserById);//ok
 
 app.get("/products", getAllProducts);//ok
