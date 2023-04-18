@@ -7,7 +7,7 @@ import { searchProductsByName } from "./endpoints/searchProductsByName";
 import { createProduct } from "./endpoints/createProduct";
 import { searchProductsById } from "./endpoints/searchProductsById";
 import { deleteUserById } from "./endpoints/deleteUserById";
-import { deleteProductById } from "./endpoints/deleteProductById";
+import { deleteProductById }  from "./endpoints/deleteProductById";
 import { putEditUserById } from "./endpoints/putEditUserId";
 import { putEditProductById } from "./endpoints/putEditProductById";
 import { createPurchase } from "./endpoints/createPurchase";
@@ -25,11 +25,11 @@ app.listen(3003, async () => {
 
 app.post("/users", createUser); //ok
 app.get("/users", getAllUsers);//ok
-app.delete("/users/:id", deleteUserById); //ok
+app.delete("/users/:id", deleteUserById); //np
 app.put("/users/:id", putEditUserById);//ok
 
 app.get("/products", getAllProducts);//ok
-app.get("/product/search", searchProductsByName);//ok
+app.get("/products/search", searchProductsByName);//ok
 app.get("/products/:id", searchProductsById);//ok
 app.post("/products", createProduct); //ok
 app.delete("/products/:id", deleteProductById);//ok

@@ -10,10 +10,6 @@ export const deleteUserById = async (req: Request, res: Response) => {
     if (!user) {
       return res.status(404).send("Usuário não encontrado");
     }
-
-    // Deletar as compras do usuário
-    await db("orders").where({ user_id: id }).delete();
-
     await db("users").where({ id }).delete();
     res.status(200).send("Usuário deletado com sucesso");
   } catch (error) {
