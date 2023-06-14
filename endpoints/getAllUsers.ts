@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { accounts } from "../database";
+import { users } from "../database";
 
 export const getAllUsers = (req:Request, res:Response) => {
-  res.status(200).send(accounts)
+  res.status(200).send(users)
 }

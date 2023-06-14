@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
-import { accounts } from "../database";
+import { users } from "../database";
 
 export const deleteAccount = (req:Request, res:Response) => {
   const { id } = req.params
-  const accountIndex = accounts.findIndex(element => element.id === id)
+  const userIndex = users.findIndex(element => element.id === id)
 
-  if (accountIndex >= 0) {
-      accounts.splice(accountIndex, 1)
+  if (userIndex >= 0) {
+    users.splice(userIndex, 1)
   } else {
       res.status(404).send("Element Not Found")
       // throw new Error("Element Not Found");

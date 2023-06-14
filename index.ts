@@ -19,8 +19,8 @@ app.get("/ping", (req: Request, res: Response) => {
     res.send("Pong!")
 
 })
-app.get("/accounts", getAllUsers)
-app.get("/accounts/:id", getById)
-app.post("/accounts", createAccount)
-app.put("/accounts/:id", updateAccount)
-app.delete("/accounts/:id", deleteAccount)
+app.get("/users", getAllUsers)
+app.get("/users/:id", getById)
+app.post("/users", createAccount)
+app.put("/users/:id", updateAccount)
+app.delete("/users/:id", deleteAccount)
