@@ -1,0 +1,22 @@
+{
+  "name": "projeto-labecommerce",
+  "version": "1.0.0",
+  "description": "Projeto Labecommerce Back-end",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eu-samuel/projeto-labecommerce.git"
+  },
+  "keywords": [
+    "back-end"
+  ],
+  "author": "Samuel Pereira",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eu-samuel/projeto-labecommerce/issues"
+  },
+  "homepage": "https://github.com/eu-samuel/projeto-labecommerce#readme"
+}
