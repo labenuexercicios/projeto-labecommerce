@@ -126,6 +126,6 @@ export const products: TProduct[] = [
 
 ]
 
-export const Purchases: TPurchase[] = []
+export const purchases: TPurchase[] = []
 
-export const Purchased_Products: TPurchased_product[] = []
+export const purchased_Products: TPurchased_product[] = []

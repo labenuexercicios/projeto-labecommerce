@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express'
 import cors from 'cors'
-import { getAllUsers, getAllProducts } from './endpoints/getAllData'
+import { getAllUsers, getAllProducts, getAllPurchases } from './endpoints/getAllData'
 import { createAccount } from './endpoints/createAccount'
 import { getById } from './endpoints/getById'
 import { deleteAccount } from './endpoints/deleteAccount'
@@ -17,10 +17,11 @@ app.listen(3003, () => {
 
 app.get("/ping", (req: Request, res: Response) => {
     res.send("Pong!")
-
 })
+
 app.get("/users", getAllUsers)
 app.get("/products", getAllProducts)
+app.get("/purchases", getAllPurchases)
 app.get("/users/:id", getById)
 app.post("/users", createAccount)
 app.put("/users/:id", updateAccount)
