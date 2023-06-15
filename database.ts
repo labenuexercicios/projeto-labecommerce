@@ -125,3 +125,7 @@ export const products: TProduct[] = [
     }
 
 ]
+
+export const Purchases: TPurchase[] = []
+
+export const Purchased_Products: TPurchased_product[] = []

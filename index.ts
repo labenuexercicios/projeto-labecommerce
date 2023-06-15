@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express'
 import cors from 'cors'
-import { getAllUsers } from './endpoints/getAllUsers'
+import { getAllUsers, getAllProducts } from './endpoints/getAllData'
 import { createAccount } from './endpoints/createAccount'
 import { getById } from './endpoints/getById'
 import { deleteAccount } from './endpoints/deleteAccount'
@@ -20,6 +20,7 @@ app.get("/ping", (req: Request, res: Response) => {
 
 })
 app.get("/users", getAllUsers)
+app.get("/products", getAllProducts)
 app.get("/users/:id", getById)
 app.post("/users", createAccount)
 app.put("/users/:id", updateAccount)
