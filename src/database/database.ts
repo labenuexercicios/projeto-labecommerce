@@ -1,4 +1,4 @@
-import { TUser, TProduct, TPurchase, TPurchased_product } from "./types";
+import { TUser, TProduct, TPurchase, TPurchased_product } from "../types";
 
 export const users: TUser[] = [
 

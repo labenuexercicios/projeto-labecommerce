@@ -86,9 +86,9 @@ Os caminhos devem ser definidos em letras minúsculas, sem acento e sem caracter
 
 ### 1. Implementar os Endpoints :
 
-    - [ ]  Get all users
-    - [ ]  Create user
-    - [ ]  Create product
+    - [x]  Get all users
+    - [x]  Create user
+    - [x]  Create product
     - [ ]  Get all products funcionalidade 1
     - [ ]  Get all products funcionalidade 2
     - [ ]  Edit product by id
@@ -369,5 +369,4 @@ Retorna os dados de uma compra, incluindo a lista de produtos da mesma.
 
 ---------------------------
 <br>
-
 
