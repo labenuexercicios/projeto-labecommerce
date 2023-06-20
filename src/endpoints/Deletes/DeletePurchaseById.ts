@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { purchases } from "../../database/database";
 
-export const deleteUserById = (req: Request, res: Response) => {
+export const deletePurchaseById = (req: Request, res: Response) => {
 
   try {
     const { id } = req.params

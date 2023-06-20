@@ -19,15 +19,6 @@ export const createProduct = (req: Request, res: Response) => {
             if (newProduct[key as keyof TProduct] === undefined) {
                 throw new Error(`Informe todos os campos`)
             }
-            if (key === "balance" && key !== undefined) {
-                if (typeof newProduct[key as keyof TProduct] !== 'number') {
-                    throw new Error(`${key} deve ser um número`)
-                }
-            } else {
-                if (typeof newProduct[key as keyof TProduct] !== "string") {
-                    throw new Error(`${key} deve ser uma string`)
-                }
-            }
         }
 
         if (typeof id !== "string") {

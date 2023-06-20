@@ -20,15 +20,6 @@ export const createUser = (req: Request, res: Response) => {
             if (newUser[key as keyof TUser] === undefined) {
                 throw new Error(`Informe todos os campos`)
             }
-            if (key === "balance" && key !== undefined) {
-                if (typeof newUser[key as keyof TUser] !== 'number') {
-                    throw new Error(`${key} must be a number`)
-                }
-            } else {
-                if (typeof newUser[key as keyof TUser] !== "string") {
-                    throw new Error(`${key} must be a string`)
-                }
-            }
         }
 
         if (typeof id !== "string") {

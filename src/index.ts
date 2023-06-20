@@ -1,9 +1,15 @@
 import express from 'express'
 import cors from 'cors'
-import { getAllUsers, getAllProducts, getAllPurchases, getPurchaseById} from './endpoints/Gets/GetPurchaseById'
-import { deletePurchaseById, deleteUserById } from './endpoints/Deletes/DeletePurchaseById'
-import { createUser, createProduct } from './endpoints/Posts/CreateUser'
-import { updateProduct } from './endpoints/Puts/EditProductById'
+import { getAllProducts } from './endpoints/Gets/GetAllProducts'
+import { getAllPurchases } from './endpoints/Gets/GetAllPurchases'
+import { getAllUsers } from './endpoints/Gets/GetAllUsers'
+import { getPurchaseById } from './endpoints/Gets/GetPurchaseById'
+import { deleteUserById } from './endpoints/Deletes/DeleteUserById'
+import { deletePurchaseById } from './endpoints/Deletes/DeletePurchaseById'
+import { createProduct } from './endpoints/Posts/CreateProduct'
+import { createUser } from './endpoints/Posts/CreateUser'
+import { createPurchase } from './endpoints/Posts/CreatePurchase'
+import { editProductById } from './endpoints/Puts/EditProductById'
 
 const app = express()
 
@@ -23,7 +29,7 @@ app.get("/purchase/:id", getPurchaseById)
 app.post("/users", createUser)
 app.post("/products", createProduct)
 
-app.put("/products/:id", updateProduct)
+app.put("/products/:id", editProductById)
 
 app.delete("/purchase/:id", deletePurchaseById)
 app.delete("/users/:id", deleteUserById)

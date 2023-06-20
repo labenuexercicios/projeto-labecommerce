@@ -18,15 +18,6 @@ export const createPurchase = (req: Request, res: Response) => {
             if (newPurchase[key as keyof TPurchase] === undefined) {
                 throw new Error(`Informe todos os campos`)
             }
-            if (key === "balance" && key !== undefined) {
-                if (typeof newPurchase[key as keyof TPurchase] !== 'number') {
-                    throw new Error(`${key} must be a number`)
-                }
-            } else {
-                if (typeof newPurchase[key as keyof TPurchase] !== "string") {
-                    throw new Error(`${key} must be a string`)
-                }
-            }
         }
 
         if (typeof id !== "string") {
