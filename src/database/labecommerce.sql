@@ -51,3 +51,29 @@ VALUES
 ( '011', 'Milkshake', 14.99, 'A traditional 500ml milkshake. Avaliable flavors are vanilla, strawberry or chocolate.',"https://i.ibb.co/k4J3PTx/milkshake.png" ),
 ( '012', 'Brazilian Açaí', 11.99, 'Açaí is a popular Amazonian fruit highly used in Brazil as a dish or dessert. This version is an 500ml ice-cream like dessert with a lot of sides!',"https://i.ibb.co/nDK103d/acai.png");
 
+-- GET ALL USERS 
+SELECT * FROM users;
+
+-- GET ALL PRODUCTS 1
+SELECT * FROM products;
+
+-- GET ALL PRODUCTS 2 
+SELECT * FROM products
+WHERE name LIKE '%burger%';
+
+-- DELETE USER BY
+DELETE FROM users
+WHERE id = 0;
+
+-- DELETE PRODUCT BY ID 
+
+DELETE FROM products
+WHERE id = 0;
+
+-- EDIT PRODUCT BY ID
+UPDATE products
+SET name = ""
+SET price = 0
+SET description = ""
+SET image_url = ""
+WHERE id = 0;
