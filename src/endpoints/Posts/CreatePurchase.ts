@@ -1,21 +1,23 @@
 import { Request, Response } from "express"
 import { TPurchase } from "../../types"
-import { purchases } from "../../database/database"
+import { db } from "../../knex";
 
-export const createPurchase = (req: Request, res: Response) => {
+export const createPurchase = async (req: Request, res: Response) => {
 
+    const { id, buyer, total_price } = req.body
     try {
-        const { id, buyer, total_price } = req.body
 
-        const newPurchase: TPurchase = {
-            id: id,
-            buyer: buyer,
-            total_price: total_price,
-            created_at: new Date()
-        }
+        const result = await db.raw(
+            `INSERT INTO purchases (id, buyer, total_price, created_at)
+                VALUES("${id}", "${buyer}", ${total_price}", DATETIME ('now'))
+                WHERE NOT EXISTS (
+                    SELECT id FROM users WHERE id='${id}'
+                ) 
+                LIMIT 1;`
+        )
 
-        for (const key in newPurchase) {
-            if (newPurchase[key as keyof TPurchase] === undefined) {
+        for (const key in req.body) {
+            if (req.body[key as keyof TPurchase] === undefined) {
                 throw new Error(`Informe todos os campos`)
             }
         }
@@ -24,9 +26,15 @@ export const createPurchase = (req: Request, res: Response) => {
             throw new Error("O id precisa ser uma string")
         }
 
-        purchases.push(newPurchase)
-        res.status(201).send({ message: "Conta criada com sucesso:", newPurchase })
+        res.status(200).send(result)
+        res.status(201).send({ message: "Produto cadastrado com sucesso:" })
+
     } catch (error: any) {
-        res.status(400).send(error.message)
+        if (error instanceof Error) {
+            res.send(error.message)
+        }
+        res.status(500).send("Erro desconhecido")
     }
 }
+
+

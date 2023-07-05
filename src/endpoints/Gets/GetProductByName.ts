@@ -1,14 +1,14 @@
 import { Request, Response } from "express";
 import { db } from "../../knex";
 
-export const getPurchaseById = async (req: Request, res: Response) => {
+export const getProductByName = async (req: Request, res: Response) => {
 
-  const id = req.body.id
+  const name = req.body.name
 
   try {
     const result = await db.raw(`
-    SELECT * FROM purchases
-    WHERE id LIKE '%${id}%';
+    SELECT * FROM products
+    WHERE name LIKE '%${name}%';
     `)
     res.status(200).send(result)
   } catch (error:any) {

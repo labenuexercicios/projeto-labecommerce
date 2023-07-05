@@ -3,13 +3,15 @@ import cors from 'cors'
 import { getAllProducts } from './endpoints/Gets/GetAllProducts'
 import { getAllPurchases } from './endpoints/Gets/GetAllPurchases'
 import { getAllUsers } from './endpoints/Gets/GetAllUsers'
-import { getPurchaseById } from './endpoints/Gets/GetPurchaseById'
+import { getProductByName } from './endpoints/Gets/GetProductByName'
+import { getProductById } from './endpoints/Gets/GetProductById'
 import { deleteUserById } from './endpoints/Deletes/DeleteUserById'
 import { deletePurchaseById } from './endpoints/Deletes/DeletePurchaseById'
 import { createProduct } from './endpoints/Posts/CreateProduct'
 import { createUser } from './endpoints/Posts/CreateUser'
 import { createPurchase } from './endpoints/Posts/CreatePurchase'
 import { editProductById } from './endpoints/Puts/EditProductById'
+import { getPurchaseById } from './endpoints/Gets/GetPurchaseById'
 
 const app = express()
 
@@ -21,16 +23,22 @@ app.listen(3003, () => {
 })
 
 
+// USERS
 app.get("/users", getAllUsers)
-app.get("/products", getAllProducts)
-app.get("/purchases", getAllPurchases)
-app.get("/purchase/:id", getPurchaseById)
-
 app.post("/users", createUser)
+app.delete("/users/:id", deleteUserById)
+
+
+// PRODUCTS
+app.get("/products", getAllProducts)
+app.get("/products/search", getProductByName)
+app.get("/products/:id", getProductById)
+app.put("/products/:id", editProductById)
 app.post("/products", createProduct)
 
-app.put("/products/:id", editProductById)
-
-app.delete("/purchase/:id", deletePurchaseById)
-app.delete("/users/:id", deleteUserById)
+// PURCHASES
+app.get("/purchases", getAllPurchases)
+app.get("/purchases/:id", getPurchaseById)
+app.post("/purchases", createPurchase)
+app.delete("/purchases/:id", deletePurchaseById)
 

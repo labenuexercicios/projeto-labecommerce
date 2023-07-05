@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { purchases } from "../../database/database";
+import { db } from "../../knex";
 
 export const deletePurchaseById = (req: Request, res: Response) => {
 

@@ -1,5 +1,6 @@
 import { Request, Response } from "express"
 import { products } from "../../database/database"
+import { db } from "../../knex";
 
 export const editProductById = (req:Request, res:Response) => {
   const id = req.params.id

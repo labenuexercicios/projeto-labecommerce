@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { users } from "../../database/database";
+import { db } from "../../knex";
 
 export const deleteUserById = (req: Request, res: Response) => {
 
@@ -17,3 +18,4 @@ export const deleteUserById = (req: Request, res: Response) => {
     } res.status(500).send("Erro desconhecido")
   }
 }
+

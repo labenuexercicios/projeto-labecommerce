@@ -1,18 +1,17 @@
 import { Request, Response } from "express";
-import { users } from "../../database/database";
+import { db } from "../../knex";
 
-export const getAllUsers = (req: Request, res: Response) => {
+export const getAllUsers = async (req: Request, res: Response) => {
 
   try {
-    if (!users) {
-      res.status(400)
-      throw new Error("Nenhum  usuário encontrado.")
-    }
-    res.status(200).send(users)
-  }
-  catch (error) {
+    const result = await db.raw(`
+    SELECT * FROM users
+    `)
+    res.status(200).send(result)
+  } catch (error:any) {
     if (error instanceof Error) {
       res.send(error.message)
-    } res.status(500).send("Erro desconhecido")
+    } 
+      res.status(500).send("Erro desconhecido")
   }
 }
