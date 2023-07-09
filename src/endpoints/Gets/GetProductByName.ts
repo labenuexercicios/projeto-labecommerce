@@ -3,18 +3,17 @@ import { db } from "../../knex";
 
 export const getProductByName = async (req: Request, res: Response) => {
 
-  const name = req.body.name
+  const { name } = req.params
 
   try {
-    const result = await db.raw(`
-    SELECT * FROM products
-    WHERE name LIKE '%${name}%';
-    `)
+    const result = await db("products")
+    .select()
+      .where("name", "LIKE", `%${name}%`)
     res.status(200).send(result)
-  } catch (error:any) {
+  } catch (error: any) {
     if (error instanceof Error) {
       res.send(error.message)
-    } 
-      res.status(500).send("Erro desconhecido")
+    }
+    res.status(500).send("Erro desconhecido")
   }
 }
