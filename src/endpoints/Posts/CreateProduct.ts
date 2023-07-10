@@ -19,19 +19,14 @@ export const createProduct = async (req: Request, res: Response) => {
 
         for (const key in req.body) {
             if (req.body[key as keyof TProduct] === undefined) {
-                throw new Error(`Informe todos os campos`)
+                res.status(400).send(`Informe todos os campos`)
             }
         }
 
         if (typeof id !== "string") {
             throw new Error("O id precisa ser uma string")
         }
-
-        if (!image_url.includes(".png") || !image_url.includes(".jpg")) {
-            throw new Error("A imagem do produto deve estar nos formatos PNG ou JPG")
-        }
-
-        res.status(200).send("Produto cadastrado com sucesso.")
+            res.status(200).send("Produto cadastrado com sucesso.")
 
     } catch (error: any) {
         if (error instanceof Error) {

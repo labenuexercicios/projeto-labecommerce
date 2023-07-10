@@ -3,7 +3,7 @@ import { db } from "../../knex";
 
 export const editProductById = async (req: Request, res: Response) => {
 
-    const id = req.params.id
+    const { id } = req.params
 
     const newId = req.body.id as string | undefined
     const newName = req.body.name as string | undefined
@@ -20,14 +20,14 @@ export const editProductById = async (req: Request, res: Response) => {
             price: newPrice || product.price,
             description: newDescription || product.description,
             image_url: newImage_url || product.image_url
-        }).from("products").where({ id: newId })
+        }).from("products").where({ id: id })
 
-        res.status(200).send("Successfully updated account")
+        res.status(200).send("Produto atualizado com sucesso!")
 
     } catch (error: any) {
         if (error instanceof Error) {
-            res.status(400).send("Insira um Id válido")
+            res.status(400).send("Insira um Id válido.")
         }
-        res.status(500).send("Erro desconhecido")
+        res.status(500).send("Erro desconhecido, faça uma nova requisição.")
     }
 }

@@ -15,6 +15,7 @@ import { createUser } from './endpoints/Posts/CreateUser'
 import { createPurchase } from './endpoints/Posts/CreatePurchase'
 
 import { editProductById } from './endpoints/Puts/EditProductById'
+import { editUserById } from './endpoints/Puts/EditUserById'
 
 
 
@@ -32,6 +33,7 @@ app.listen(3003, () => {
 app.get("/users", getAllUsers)
 app.post("/users", createUser)
 app.delete("/users/:id", deleteUserById)
+app.put("/users/:id", editUserById)
 
 
 // PRODUCTS
