@@ -63,7 +63,7 @@ VALUES
 
 INSERT INTO products (id, name, price, description, image_url)
 VALUES
-( '013', 'Bananinha', 2.99, 'A verdadeira mascote da Labenu! Bombom de banana.',"https://i.ibb.co/DkQsZ7g/bananinha.png");
+( 'p013', 'Bananinha', 2.99, 'A verdadeira mascote da Labenu! Bombom de banana.',"https://i.ibb.co/DkQsZ7g/bananinha.png");
 
 INSERT INTO purchases (id, buyer, total_price, created_at)
 VALUES 
@@ -90,7 +90,7 @@ SELECT * FROM products;
 
 -- GET ALL PRODUCTS 2 
 SELECT * FROM products
-WHERE name LIKE '%burger%';
+WHERE name LIKE '%milk%';
 
 -- DELETE USER BY ID
 DELETE FROM users

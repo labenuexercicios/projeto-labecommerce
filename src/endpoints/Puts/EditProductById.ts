@@ -26,7 +26,7 @@ export const editProductById = async (req: Request, res: Response) => {
 
     } catch (error: any) {
         if (error instanceof Error) {
-            res.send(error.message)
+            res.status(400).send("Insira um Id válido")
         }
         res.status(500).send("Erro desconhecido")
     }

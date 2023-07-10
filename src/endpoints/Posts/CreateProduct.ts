@@ -16,15 +16,6 @@ export const createProduct = async (req: Request, res: Response) => {
 
     try {
         const result = await db("products").insert(newProduct)
-        const [product] = await db("products")
-        .select()
-        .where({ id: id })
-
-        if(product.id === id) {
-            throw new Error('Id já cadastrado.')
-        } if(product.name === name){
-            throw new Error('Este produto já foi cadastrado.')
-        }
 
         for (const key in req.body) {
             if (req.body[key as keyof TProduct] === undefined) {
@@ -40,14 +31,13 @@ export const createProduct = async (req: Request, res: Response) => {
             throw new Error("A imagem do produto deve estar nos formatos PNG ou JPG")
         }
 
-        res.status(200).send(result)
-        res.status(201).send({ message: "Produto cadastrado com sucesso.", newProduct })
+        res.status(200).send("Produto cadastrado com sucesso.")
 
     } catch (error: any) {
         if (error instanceof Error) {
-            res.send(error.message)
+            res.status(400).send(error.message)
         }
-        res.status(500).send("Erro desconhecido")
+        res.status(500).send("Erro desconhecido, faça uma nova requisição.")
     }
 }
 

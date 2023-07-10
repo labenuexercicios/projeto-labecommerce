@@ -3,15 +3,20 @@ import cors from 'cors'
 import { getAllProducts } from './endpoints/Gets/GetAllProducts'
 import { getAllPurchases } from './endpoints/Gets/GetAllPurchases'
 import { getAllUsers } from './endpoints/Gets/GetAllUsers'
-import { getProductByName } from './endpoints/Gets/GetProductByName'
 import { getProductById } from './endpoints/Gets/GetProductById'
+import { getPurchaseById } from './endpoints/Gets/GetPurchaseById'
+
 import { deleteUserById } from './endpoints/Deletes/DeleteUserById'
 import { deletePurchaseById } from './endpoints/Deletes/DeletePurchaseById'
+import { deleteProductById } from './endpoints/Deletes/DeleteProductById'
+
 import { createProduct } from './endpoints/Posts/CreateProduct'
 import { createUser } from './endpoints/Posts/CreateUser'
 import { createPurchase } from './endpoints/Posts/CreatePurchase'
+
 import { editProductById } from './endpoints/Puts/EditProductById'
-import { getPurchaseById } from './endpoints/Gets/GetPurchaseById'
+
+
 
 const app = express()
 
@@ -31,10 +36,10 @@ app.delete("/users/:id", deleteUserById)
 
 // PRODUCTS
 app.get("/products", getAllProducts)
-app.get("/products/search", getProductByName)
 app.get("/products/:id", getProductById)
 app.put("/products/:id", editProductById)
 app.post("/products", createProduct)
+app.delete("/products/:id", deleteProductById)
 
 // PURCHASES
 app.get("/purchases", getAllPurchases)

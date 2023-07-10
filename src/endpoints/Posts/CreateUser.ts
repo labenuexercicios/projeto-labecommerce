@@ -12,22 +12,13 @@ export const createUser = async (req: Request, res: Response) => {
         name: name,
         email: email,
         password: password,
-        created_at: new Date
+        created_at: new Date().toISOString()
     }
 
     try {
 
         const result = await db("users").insert(newUser)
-        const [user] = await db("users")
-        .select()
-        .where({ id: id })
-
-        if (user.id === id) {
-            throw new Error('Id já cadastrado')
-        } if (user.email === email) {
-            throw new Error('Email já cadastrado')
-        }
-
+    
         for (const key in req.body) {
             if (req.body[key as keyof TUser] === undefined) {
                 throw new Error(`Informe todos os campos`)
@@ -39,15 +30,14 @@ export const createUser = async (req: Request, res: Response) => {
         } if (password.length < 6) {
             throw new Error('A senha precisa ter no mínimo 6 caracteres')
         }
-
-        res.status(200).send(result)
-        res.status(201).send({ message: "Conta criada com sucesso:", newUser })
+        
+        res.status(200).send("Conta criada com sucesso.")
     }
 
     catch (error: any) {
         if (error instanceof Error) {
-            res.send(error.message)
+            res.status(400).send(error.message)
         }
-        res.status(500).send("Erro desconhecido")
+        res.status(500).send("Erro desconhecido, faça uma nova requisição.")
     }
 }
