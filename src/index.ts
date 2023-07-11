@@ -31,6 +31,7 @@ app.listen(3003, () => {
 
 // USERS
 app.get("/users", getAllUsers)
+app.get("/users/:id", getUserById)
 app.post("/users", createUser)
 app.delete("/users/:id", deleteUserById)
 app.put("/users/:id", editUserById)
