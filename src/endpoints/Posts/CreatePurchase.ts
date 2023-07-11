@@ -27,7 +27,7 @@ export const createPurchase = async (req: Request, res: Response) => {
             throw new Error("O id precisa ser uma string.")
         }
 
-        res.status(200).send("Produto cadastrado com sucesso.")
+        res.status(200).send({message: "Produto cadastrado com sucesso."})
 
     } catch (error: any) {
         if (error instanceof Error) {

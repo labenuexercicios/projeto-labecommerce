@@ -21,7 +21,7 @@ export const editUserById = async (req: Request, res: Response) => {
             lastUpdate: lastUpdate
         }).from("users").where({ id: id })
 
-        res.status(200).send("Usuário atualizado com sucesso!")
+        res.status(200).send({message: "Usuário atualizado com sucesso!"})
 
     } catch (error: any) {
         if (error instanceof Error) {

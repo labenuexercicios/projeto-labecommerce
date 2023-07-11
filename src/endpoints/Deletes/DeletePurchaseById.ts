@@ -10,7 +10,7 @@ export const deletePurchaseById = async (req: Request, res: Response) => {
       .delete()
       .where("id", "=", `${id}`)
 
-      res.status(200).send("Pedido cancelado com sucesso.")
+      res.status(200).send({message: "Pedido cancelado com sucesso."})
 
   } catch (error: any) {
     if (error instanceof Error) {

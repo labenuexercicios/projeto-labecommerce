@@ -10,7 +10,7 @@ export const deleteUserById = async (req: Request, res: Response) => {
       .delete()
       .where("id", "=", `${id}`)
 
-      res.status(200).send("Usuário removido com sucesso.")
+      res.status(200).send({message: "Usuário removido com sucesso."})
 
   } catch (error: any) {
     if (error instanceof Error) {

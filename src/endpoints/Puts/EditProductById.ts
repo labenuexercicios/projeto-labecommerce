@@ -24,7 +24,7 @@ export const editProductById = async (req: Request, res: Response) => {
             lastUpdate: lastUpdate
         }).from("products").where({ id: id })
 
-        res.status(200).send("Produto atualizado com sucesso!")
+        res.status(200).send({message: "Produto atualizado com sucesso!"})
 
     } catch (error: any) {
         if (error instanceof Error) {

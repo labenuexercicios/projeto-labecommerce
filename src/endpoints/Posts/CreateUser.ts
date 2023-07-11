@@ -31,7 +31,7 @@ export const createUser = async (req: Request, res: Response) => {
             throw new Error('A senha precisa ter no mínimo 6 caracteres')
         }
         
-        res.status(200).send("Conta criada com sucesso.")
+        res.status(200).send({message: "Usuário cadastrado com sucesso."})
     }
 
     catch (error: any) {

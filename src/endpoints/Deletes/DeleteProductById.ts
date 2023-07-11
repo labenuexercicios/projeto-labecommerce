@@ -10,7 +10,7 @@ export const deleteProductById = async (req: Request, res: Response) => {
       .delete()
       .where("id", "=", `${id}`)
 
-      res.status(200).send("Produto deletado com sucesso")
+      res.status(200).send({message: "Produto deletado com sucesso"})
   
   } catch (error: any) {
     if (error instanceof Error) {
