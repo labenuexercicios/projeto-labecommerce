@@ -10,6 +10,7 @@ export const editProductById = async (req: Request, res: Response) => {
     const newPrice = req.body.price as number | undefined
     const newDescription = req.body.description as string | undefined
     const newImage_url = req.body.image_url as string | undefined
+    const lastUpdate = new Date().toISOString()
 
     try {
         const [product] = await db.select("*").from("products").where({ id: id })
@@ -19,7 +20,8 @@ export const editProductById = async (req: Request, res: Response) => {
             name: newName || product.name,
             price: newPrice || product.price,
             description: newDescription || product.description,
-            image_url: newImage_url || product.image_url
+            image_url: newImage_url || product.image_url,
+            lastUpdate: lastUpdate
         }).from("products").where({ id: id })
 
         res.status(200).send("Produto atualizado com sucesso!")
