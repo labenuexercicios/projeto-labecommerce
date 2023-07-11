@@ -5,6 +5,7 @@ import { getAllPurchases } from './endpoints/Gets/GetAllPurchases'
 import { getAllUsers } from './endpoints/Gets/GetAllUsers'
 import { getProductById } from './endpoints/Gets/GetProductById'
 import { getPurchaseById } from './endpoints/Gets/GetPurchaseById'
+import { getUserById } from './endpoints/Gets/GetUserById'
 
 import { deleteUserById } from './endpoints/Deletes/DeleteUserById'
 import { deletePurchaseById } from './endpoints/Deletes/DeletePurchaseById'
