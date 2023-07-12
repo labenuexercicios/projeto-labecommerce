@@ -3,7 +3,7 @@ export type TUser = {
     name: string,
     email: string,
     password: string | number,
-    created_at: Date
+    created_at: string
 }
 
 export type TProduct = {
@@ -19,7 +19,7 @@ export type TPurchase = {
     id: string,
     buyer: string,
     total_price: number,
-    created_at: Date
+    created_at: string
 }
 
 
@@ -29,3 +29,12 @@ export type TPurchased_product = {
     quantity: number
 }
 
+export type TViewPurchase = {
+    purchaseId: string,
+    buyerId: string,
+    buyerName: string,
+    buyerEmail: string,
+    totalPrice: number,
+    products: [],
+    createdAt: string
+}

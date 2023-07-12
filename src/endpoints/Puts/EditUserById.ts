@@ -3,7 +3,7 @@ import { db } from "../../knex";
 
 export const editUserById = async (req: Request, res: Response) => {
 
-    const { id } = req.params
+    const id = req.params.id
 
     const newName = req.body.name as string | undefined
     const newEmail = req.body.email as number | undefined
@@ -21,12 +21,21 @@ export const editUserById = async (req: Request, res: Response) => {
             lastUpdate: lastUpdate
         }).from("users").where({ id: id })
 
-        res.status(200).send({message: "Usuário atualizado com sucesso!"})
+        if (!user) {
+             res.status(400)
+            throw new Error("Usuário não encontrado, id inválido.")
+        }
+
+        if (typeof newName !== "string" || typeof newEmail !== "string" ||
+            typeof newPassword !== "string") {
+             res.status(400)
+            throw new Error("Por favor, preencha com strings os campos que pedem esse formato.")
+        }
+
+
+        res.status(200).send({ message: "Usuário atualizado com sucesso!" })
 
     } catch (error: any) {
-        if (error instanceof Error) {
-            res.status(400).send("Insira um login válido.")
-        }
         res.status(500).send("Erro desconhecido, faça uma nova requisição.")
     }
 }

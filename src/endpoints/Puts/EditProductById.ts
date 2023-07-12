@@ -3,7 +3,7 @@ import { db } from "../../knex";
 
 export const editProductById = async (req: Request, res: Response) => {
 
-    const { id } = req.params
+    const id = req.params.id
 
     const newId = req.body.id as string | undefined
     const newName = req.body.name as string | undefined
@@ -24,7 +24,18 @@ export const editProductById = async (req: Request, res: Response) => {
             lastUpdate: lastUpdate
         }).from("products").where({ id: id })
 
-        res.status(200).send({message: "Produto atualizado com sucesso!"})
+        if (typeof id !== "string") {
+             res.status(400)
+            throw new Error("Por favor, o id deve ser uma string.")
+        }
+
+        if (typeof newId !== "string" || typeof newName !== "string" ||
+            typeof newDescription !== "string" || typeof newImage_url !== "string") {
+             res.status(400)
+            throw new Error("Por favor, preencha com strings os campos que pedem esse formato.")
+        }
+
+        res.status(200).send({ message: "Produto atualizado com sucesso!" })
 
     } catch (error: any) {
         if (error instanceof Error) {

@@ -1,4 +1,4 @@
--- Active: 1687301146282@@127.0.0.1@3306
+-- Active: 1689115200511@@127.0.0.1@3306
 CREATE TABLE if NOT EXISTS users (
     id PRIMARY KEY UNIQUE NOT NULL,
     name TEXT NOT NULL, 
@@ -26,6 +26,7 @@ CREATE TABLE if NOT EXISTS purchases (
     ON UPDATE CASCADE
     ON DELETE CASCADE  
 ); 
+
 
 CREATE TABLE if NOT EXISTS purchases_products (
     purchase_id TEXT NOT NULL,
@@ -71,7 +72,8 @@ VALUES
 ('pc002', 'u002', 19.99, DATETIME('now')),
 ('pc003', 'u003', 11.99, DATETIME('now')),
 ('pc004', 'u004', 34.99, DATETIME('now')),
-('pc005', 'u005', 14.99, DATETIME('now'));
+('pc005', 'u005', 14.99, DATETIME('now'))
+;
 
 INSERT INTO purchases_products(purchase_id, product_id, quantity)
 VALUES
@@ -91,6 +93,9 @@ SELECT * FROM products;
 -- GET ALL PRODUCTS 2 
 SELECT * FROM products
 WHERE name LIKE '%milk%';
+
+-- GET ALL PURCHASES
+SELECT * FROM purchases;
 
 -- DELETE USER BY ID
 DELETE FROM users

@@ -3,16 +3,16 @@ import { db } from "../../knex";
 
 export const getAllProducts = async (req: Request, res: Response) => {
 
-  const { name } = req.query
+  const name = req.query.name
 
   try {
-    
+
     let result;
 
-    if(name) {
+    if (name) {
       result = await db("products")
-      .select()
-      .where("name", "LIKE", `%${name}%`)
+        .select()
+        .where("name", "LIKE", `%${name}%`)
     } else {
       result = await db("products").select()
     }
@@ -20,6 +20,9 @@ export const getAllProducts = async (req: Request, res: Response) => {
     res.status(200).send(result)
 
   } catch (error: any) {
+    if (res.statusCode === 200) {
+      res.status(500);
+    }
     if (error instanceof Error) {
       res.status(400).send(error.message)
     }

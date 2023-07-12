@@ -4,9 +4,13 @@ import { db } from "../../knex";
 export const getAllPurchases = async (req: Request, res: Response) => {
 
   try {
-    const [result] = await db("purchases").select()
+    const result = await db("purchases").select();
     res.status(200).send(result)
+
   } catch (error: any) {
+    if (res.statusCode === 200) {
+      res.status(500);
+    }
     if (error instanceof Error) {
       res.status(400).send(error.message)
     }
