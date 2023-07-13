@@ -1,8 +1,9 @@
-# Projeto labecommerce
+# Labecommerce API
 
-É o primeiro projeto do back-end, onde praticamos toda a base de criação de uma API vinculada a um banco de dados real.<br><br>
-Ele tem uma particularidade: seus requisitos são implementados ao longo dos exercícios pós aula. Isso significa que caso você siga o desenvolvimento das aulas, quando chegar na data de entrega já terá um projeto funcional e quase pronto para entrega.
-<br>
+A Labecommerce API faz parte do projeto de pilares do back-end, conteúdo ministrado pela escola de programação "Labenu". Trata-se de uma simples API de lanchonete, contendo uma lista de usuários, cardápio de produtos e registros de compras. Através do Knex, a API retira suas informações pelo consumo de um banco de dados moldado em SQLite. Através do ID registrado, é permitido criar e editar novos usuários, produtos, e registrar novas compras. Também é possível deletar qualquer informação da API através do ID.
+
+O usuário poderá acessar a documentação desta API no Postman através deste [link](https://documenter.getpostman.com/view/26594506/2s946chaKj).
+
 ### Conteúdos abordados
 - NodeJS
 - Typescript
@@ -11,109 +12,51 @@ Ele tem uma particularidade: seus requisitos são implementados ao longo dos exe
 - Knex
 - Postman
 
-# ⚠⚠⚠ Importante!!! ⚠⚠⚠
-Para critérios de correção serão considerados rigorosamente a nomenclatura de: Tabelas, colunas e caminhos(path) das requisições. Portando, siga o padrão de nomenclaturas apresentado logo abaixo.
-
 ## Banco de dados 🎲🎲
-O nome das tabelas e das colunas devem ser em letras minúsculas, sem acento, sem caracteres especiais e em _snake_case_(caso sejas palavras compostas. exp.: arco_iris). Por isso, siga restritamente a nomeclatura proposta!
 
-O banco de dados deve conter obrigatóriamente quatro tabelas:
+O banco de dados contém quatro tabelas com as seguintes colunas:
 
-## Tabela de Usuários: 
-### Nome da Tabela:
-- users
-### Nome das colunas
+### users 🙍🙆
 - id
 - name
 - email
 - password
 - created_at
-
-## Tabela de Produtos 🛒🛒
-### Nome da Tabela:
-- products
-### Nome das colunas
+##
+### products 🛒🛒
 - id 
 - name
 - price
 - description
 - image_url
-
-### Tabela de Registro de Compras 💸💸
-
-### Nome da Tabela:
-- purchases
-### Nome das colunas
+##
+### purchases 💸💸
 - id 
 - buyer
 - total_price
 - created_at
-
-## Tabela de Registro de Produtos Comprados 🧾🧾
-### Nome da Tabela:
-purchases_products
-### Nome das colunas
+##
+### purchases_products 🧾🧾
 - purchase_id
 - product_id
 - quantity
---------------------------
-<br>
+##
 
-#### Para realizar a modelagem do seu banco de dados e das tabelas, considere a imagem a baixo. 
+#### Modelagem do banco de dados. 
 
-Nela são mostradas as relações entre as tabelas :
+As relações entre as tabelas, tal como a tipagem de suas colunas foram elaboradas da seguinte maneira:
 
 ![image](https://github.com/labenuexercicios/projeto-labecommerce/assets/29845719/b446bbb0-bc9c-42d9-be04-b9ce1d605bd4)
-https://dbdiagram.io/d/63c6e8e5296d97641d7a4666
 
-<br>
----------------
+###
 
-## Caminhos das Requisições (Paths) 🛣🛣
-Os caminhos devem ser definidos em letras minúsculas, sem acento e sem caracteres especiais. Siga conforme o modelo de documentação proposto.
+# Lista de endpoints
 
-### Requisições de Usuários
-- /users
-### Requisições de Produtos
-- /products
-### Requisições de Compras
-- /purchases
----------------
-# Lista de requisitos - Obrigatórios
+<img src="https://i.ibb.co/wQ3xjPq/image.png" alt="endpoints"></img>
 
-### 0. Tipar as entidades
-É essencial utilizar o poder de tipagem do typescript! Evite ao máximo o uso do any (apesar de não ser errado utilizá-lo em casos específicos).
-
-### 1. Implementar os Endpoints :
-
-    - [x]  Get all users
-    - [x]  Create user
-    - [x]  Create product
-    - [ ]  Get all products funcionalidade 1
-    - [ ]  Get all products funcionalidade 2
-    - [ ]  Edit product by id
-    - [ ]  Create purchase
-    - [ ]  Delete purchase by id
-    - [ ]  Get purchase by id
-
-### 2. Documentação no Postman de todos os endpoints (obrigatória para correção), descrevendo os endpoints e colocando os exemplos de respostas 
-
-### 3. Criar o arquivo  README.md , explicando seu projeto com prints das respostas
-
-Aqui está uma Documentação para referência (como deve ficar)
-https://documenter.getpostman.com/view/21151478/2s8ZDeSdbz
-
--------------------
-
-# Exemplos de requisição
-
-**Não precisa cadastrar o mesmo nome, email e quaisquer outros valores vistos aqui nos exemplos de saída. Porém, deve-se respeitar rigorosamente a estrutura pedida no banco de dados (nome das tabelas e colunas), nomes das propriedades na resposta da API e caminho dos endpoints**
-
--------------------
 
 ## Get all users
 Retorna todas as pessoas cadastradas.<br>
-Dica: atenção com o nome da propriedade createdAt! Ela deve vir em camelCase, apesar de estar em snake_case no banco de dados.
 ```typescript
 // Request
 // GET /users
@@ -121,19 +64,34 @@ Dica: atenção com o nome da propriedade createdAt! Ela deve vir em camelCase, 
 // Response
 // status 200 OK
 [
+   
     {
-        id: "u001",
-        name: "Fulano",
-        email: "fulano@email.com",
-        password: "fulano123",
-        createdAt: "2023-01-15 09:12:42"
+        "id": "u001",
+        "name": "Mary Christmas",
+        "email": "marychristmas@email.com",
+        "password": "mypassword1",
+        "created_at": "2023-07-11 22:40:23"
     },
     {
-        id: "u002",
-        name: "Ciclana",
-        email: "ciclana@email.com",
-        password: "ciclana99",
-        createdAt: "2023-01-17 12:35:28"
+        "id": "u002",
+        "name": "Jungle Jim",
+        "email": "junglejim@email.com",
+        "password": "mypassword2",
+        "created_at": "2023-07-11 22:40:23"
+    },
+    {
+        "id": "u003",
+        "name": "Suzi Snoozie",
+        "email": "suzisnoozie@email.com",
+        "password": "mypassword3",
+        "created_at": "2023-07-11 22:40:23"
+    },
+    {
+        "id": "u004",
+        "name": "Tom Apple",
+        "email": "tomapple@email.com",
+        "password": "mypassword4",
+        "created_at": "2023-07-11 22:40:23"
     }
 ]
 ```
@@ -148,16 +106,16 @@ Cadastra uma nova pessoa.
 // POST /users
 // body JSON
 {
-    "id": "u003",
-    "name": "Astrodev",
-    "email": "astrodev@email.com",
-    "password": "astrodev00"
+    "id": "id",
+    "name": "name",
+    "email": "email",
+    "password": "password"
 }
 
 // Response
-// status 201 CREATED
+// status 200 CREATED
 {
-    message: "Cadastro realizado com sucesso"
+    message: "Usuário cadastrado com sucesso." 
 }
 ```
 ---------------
@@ -170,15 +128,15 @@ Cadastra um novo produto.
 // POST /products
 // body JSON
 {
-    "id": "prod003",
-    "name": "Teclado gamer",
-    "price": 200,
-    "description": "Teclado mecânico com numpad",
-    "imageUrl": "https://picsum.photos/seed/Teclado%20gamer/400"
+    "id": "id",
+    "name": "name",
+    "price": 0,
+    "description": "description",
+    "image_url": "please a jpg or png image link"
 }
 
 // Response
-// status 201 CREATED
+// status 200 CREATED
 {
     message: "Produto cadastrado com sucesso"
 }
@@ -187,7 +145,7 @@ Cadastra um novo produto.
 ---------------------
 <br>
 
-## Get all products funcionalidade 1
+## Get all products
 Retorna todos os produtos cadastrados.
 ```typescript
 // Request
@@ -197,25 +155,25 @@ Retorna todos os produtos cadastrados.
 // status 200 OK
 [
     {
-        id: "prod001",
-        name: "Mouse gamer",
-        price: 250,
-        description: "Melhor mouse do mercado!",
-        imageUrl: "https://picsum.photos/seed/Mouse%20gamer/400"
+        id: "p001",
+        name: "Cheeseburger",
+        price: 19.99,
+        description: "A fat cheeseburger with our homemade burger meat, tomato and lettuce. Non-cheese version costs $ 14.99.",
+        imageUrl: "https://i.ibb.co/WWvfS5S/burger.png"
     },
     {
-        id: "prod002",
-        name: "Monitor",
-        price: 900,
-        description: "Monitor LED Full HD 24 polegadas",
-        imageUrl: "https://picsum.photos/seed/Monitor/400"
+        id: "p002",
+        name: "Double burger",
+        price: 29.99,
+        description: "Our cheeseburger with double meat and much more cheese, do not waste your time! Non-cheese version costs $ 24.99.",
+        imageUrl: "https://i.ibb.co/KjZm192/doubleburger.png"
     },
-    {
-        id: "prod003",
-        name: "Teclado gamer",
-        price: 200,
-        description: "Teclado mecânico com numpad",
-        imageUrl: "https://picsum.photos/seed/Teclado%20gamer/400"
+     {
+        id: "p003",
+        name: "Big Bacon",
+        price: 34.99,
+        description: "Look at this big monster. The big bacon contains a 110g blend, cheddar, tons of bacon slices and an artesanal bread. Non-cheese version costs $29.99.",
+        imageUrl: "https://i.ibb.co/BLszRx4/bigbacon.png"
     }
 ]
 ```
@@ -223,29 +181,88 @@ Retorna todos os produtos cadastrados.
 ---------------------------
 <br>
 
-## Get all products funcionalidade 2
-Caso seja enviada uma query params (name) deve ser retornado o resultado da busca de produtos que contenham o _"name"_ informado em seu nome.
+## Get all purchases
+Retorna todos os pedidos cadastrados. Para uma busca mais detalhada, use o endpoint /purchases/:id.
 ```typescript
 // Request
-// query params = name
-// GET /products?name=gamer
+// GET /purchases
 
 // Response
 // status 200 OK
 [
     {
-        id: "prod001",
-        name: "Mouse gamer",
-        price: 250,
-        description: "Melhor mouse do mercado!",
-        imageUrl: "https://picsum.photos/seed/Mouse%20gamer/400"
+        "id": "pc001",
+        "buyer": "u001",
+        "total_price": 29.99,
+        "created_at": "2023-07-11 22:45:06"
     },
     {
-        id: "prod003",
-        name: "Teclado gamer",
-        price: 200,
-        description: "Teclado mecânico com numpad",
-        imageUrl: "https://picsum.photos/seed/Teclado%20gamer/400"
+        "id": "pc002",
+        "buyer": "u002",
+        "total_price": 19.99,
+        "created_at": "2023-07-11 22:45:06"
+    },
+    {
+        "id": "pc003",
+        "buyer": "u003",
+        "total_price": 11.99,
+        "created_at": "2023-07-11 22:45:06"
+    },
+    {
+        "id": "pc004",
+        "buyer": "u004",
+        "total_price": 34.99,
+        "created_at": "2023-07-11 22:45:06"
+    },
+    {
+        "id": "pc005",
+        "buyer": "u005",
+        "total_price": 14.99,
+        "created_at": "2023-07-11 22:45:06"
+    },
+    {
+        "id": "pc006",
+        "buyer": "u005",
+        "total_price": 39.9,
+        "created_at": "2023-07-12T23:08:15.503Z"
+    }
+]
+```
+
+---------------------------
+<br>
+
+## Get all products (funcionalidade extra)
+Caso seja enviada uma query params (name) deve ser retornado o resultado da busca de produtos que contenham o _"name"_ informado em seu nome.
+```typescript
+// Request
+// query params = name
+// GET /products?name=fries
+
+// Response
+// status 200 OK
+[
+    {
+        id: "p004",
+        name: "French Fries (Simple)",
+        price: 9.99,
+        description: "A fat cheeseburger with our homemade burger meat, tomato and lettuce. Non-cheese version costs $ 14.99.",
+        imageUrl: "https://i.ibb.co/FVxwG9v/fries.png"
+    },
+    {
+        id: "p005",
+        name: "French Fries (Pot)",
+        price: 19.99,
+        description: "Our best salted french fries now comes in a ceramic pot (just give it back). Contains 250g and comes with ketchup and mustard sauce.",
+        imageUrl: "https://i.ibb.co/HqCXV1j/biggerfries.png"
+    },
+
+    {
+        id: "p006",
+        name: "Crazy French Fries",
+        price: 29.99,
+        description: "Our specialty, the crazy french fries dish is a must! It contains 250g and comes with the traditional sauces, but also a lot of cheddar and pepperoni.",
+        imageUrl: "https://i.ibb.co/QFNqvW1/crazyfries.png"
     }
 ]
 ```
@@ -254,7 +271,7 @@ Caso seja enviada uma query params (name) deve ser retornado o resultado da busc
 <br>
 
 ## Edit product by id
-Edita um produto existente.
+Edita um produto existente com base em seu id (este porém, não poderá ser alterado).
 ```typescript
 // Request
 // path params = :id
@@ -262,11 +279,34 @@ Edita um produto existente.
 // PUT /products/prod003
 // body JSON
 {
-    "id": "prod0033",
-    "name": "Teclado gamer RGB",
-    "price": 300,
-    "description": "Teclado mecânico com RGB e numpad",
-    "imageUrl": "https://picsum.photos/seed/Teclado%20gamer%20RGB/400"
+    "name": "name",
+    "price": 0,
+    "description": "description",
+    "image_url": "please a jpg or png image link"
+}
+
+// Response
+// status 200 OK
+{
+    message: "Produto atualizado com sucesso"
+}
+```
+
+---------------------------
+<br>
+
+## Edit user by id
+Edita um usuário existente com base em seu id (este porém, não poderá ser alterado).
+```typescript
+// Request
+// path params = :id
+
+// PUT /products/prod003
+// body JSON
+{
+   "name": "name",
+   "email": "email",
+   "password": "password"
 }
 
 // Response
@@ -280,28 +320,25 @@ Edita um produto existente.
 <br>
 
 ## Create purchase
-Cadastra um novo pedido. Como dica, o exercício 1 da aula de [Relações em SQL II](https://github.com/labenuexercicios/relacoes-sql-II-exercicios) é uma boa referência.
+Cadastra um novo pedido.
 ```typescript
 // Request
 // POST /purchases
 // body JSON
 {
-    "id": "pur001",
-    "buyer": "u001",
+    "id": "id",
+    "buyer": "buyer id",
+    "total_price": 0,
     "products": [
         {
-            "id": "prod001",
-            "quantity": 2
-        },
-        {
-            "id": "prod002",
-            "quantity": 1
+            "id": "product id",
+            "quantity": 0
         }
     ]
 }
 
 // Response
-// status 201 CREATED
+// status 200 CREATED
 {
     message: "Pedido realizado com sucesso"
 }
@@ -339,33 +376,27 @@ Retorna os dados de uma compra, incluindo a lista de produtos da mesma.
 // Response
 // status 200 OK
 {
-    purchaseId: "pur001",
-    buyerId: "u001",
-    buyerName: "Fulano",
-    buyerEmail: "fulano@email.com",
-    totalPrice: 1400,
-    createdAt: "2023-01-15 16:24:54",
-    products: [
+    "purchase_id": "pc002",
+    "totalPrice": 19.99,
+    "createdAt": "2023-07-11 22:45:06",
+    "buyerId": "u002",
+    "buyerName": "Jungle Jim",
+    "buyerEmail": "junglejim@email.com",
+    "products": [
         {
-            id: "prod001",
-            name: "Mouse gamer",
-            price: 250,
-            description: "Melhor mouse do mercado!",
-            imageUrl: "https://picsum.photos/seed/Mouse%20gamer/400",
-            quantity: 2
-        },
-        {
-            id: "prod002",
-            name: "Monitor",
-            price: 900,
-            description: "Monitor LED Full HD 24 polegadas",
-            imageUrl: "https://picsum.photos/seed/Monitor/400",
-            quantity: 1
+            "id": "p001",
+            "name": "Cheeseburger",
+            "price": 19.99,
+            "description": "A fat cheeseburger with our homemade burger meat, tomato and lettuce. Non-cheese version costs $ 14.99.",
+            "image_url": "https://i.ibb.co/WWvfS5S/burger.png"
         }
     ]
 }
 ```
+<br>
+As explicações detalhadas de cada endpoint se encontram presentes na [documentação](https://documenter.getpostman.com/view/26594506/2s946chaKj) desta API.
 
+<br>
 
 ---------------------------
 <br>
