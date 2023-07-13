@@ -34,6 +34,7 @@ export const getPurchaseById = async (req: Request, res: Response) => {
       totalPrice: purchase.total_price,
       createdAt: purchase.created_at,
       buyerId: user.id,
+      buyerName: user.name,
       buyerEmail: user.email,
       products: list
     }
