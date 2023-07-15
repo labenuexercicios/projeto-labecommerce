@@ -179,14 +179,51 @@ app.post("/purchases", async (req: Request, res: Response) => {
 
 app.get("/purchases/:id", async (req: Request, res: Response) => {
   try {
-    const { id, purchases, purchases_products} = req.params;
+    const { id } = req.params;
 
-    const result = await db("purchases").where({ id: id });
-    if (result.length === 0) {
-      res.status(404).send("Pedido não encontrado...");
-      return;
-    }
-    res.status(200).send(result);
+    const result = await db('purchases as p')
+      .select({
+        purchaseId: 'p.id',
+        buyerId: 'u.id',
+        buyerName: 'u.name',
+        buyerEmail: 'u.email',
+        totalPrice: 'p.total_price',
+        createdAt: 'p.created_at',
+        productId: 'pr.id',
+        productName: 'pr.name',
+        productPrice: 'pr.price',
+        productDescription: 'pr.description',
+        productImageUrl: 'pr.image_url',
+        productQuantity: 'pp.quantity'
+      })
+      .where('p.id', id)
+      .innerJoin('users as u', 'u.id', 'p.buyer')
+      .innerJoin('purchases_products as pp', 'pp.purchase_id', 'p.id')
+      .innerJoin('products as pr', 'pr.id', 'pp.product_id');
+
+      if (!result.length) {
+        res.status(404).send("Purchase not found...");
+        return;
+      }
+
+      const response = {
+        purchaseId: result[0].purchaseId,
+        buyerId: result[0].buyerId,
+        buyerName: result[0].buyerName,
+        buyerEmail: result[0].buyerEmail,
+        totalPrice: result[0].totalPrice,
+        createdAt: result[0].createdAt,
+        products: result.map(product => ({
+          id: product.productId,
+          name: product.productName,
+          price: product.productPrice,
+          description: product.productDescription,
+          imageUrl: product.productImageUrl,
+          quantity: product.productQuantity
+        }))
+      }
+
+    res.status(200).send(response);
   } catch (error) {
     console.log("ERRO!", error);
     res.status(500).send("Internal Server Error");
