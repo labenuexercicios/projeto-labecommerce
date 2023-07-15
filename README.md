@@ -48,7 +48,6 @@ O banco de dados deve conter obrigatóriamente quatro tabelas:
 - buyer
 - total_price
 - created_at
-- paid
 
 ## Tabela de Registro de Produtos Comprados 🧾🧾
 ### Nome da Tabela:
@@ -84,15 +83,15 @@ Os caminhos devem ser definidos em letras minúsculas, sem acento e sem caracter
 
 ### 1. Implementar os Endpoints :
 
-    - [ ]  Get all users
-    - [ ]  Create user
-    - [ ]  Create product
-    - [ ]  Get all products funcionalidade 1
-    - [ ]  Get all products funcionalidade 2
-    - [ ]  Edit product by id
-    - [ ]  Create purchase
-    - [ ]  Delete purchase by id
-    - [ ]  Get purchase by id
+    - [x]  Get all users
+    - [x]  Create user
+    - [x]  Create product
+    - [x]  Get all products funcionalidade 1
+    - [x]  Get all products funcionalidade 2
+    - [x]  Edit product by id
+    - [?]  Create purchase
+    - [x]  Delete purchase by id
+    - [?]  Get purchase by id
 
 ### 2. Documentação no Postman de todos os endpoints (obrigatória para correção), descrevendo os endpoints e colocando os exemplos de respostas 
 

@@ -10,5 +10,12 @@ export type TProducts = {
   name: string;
   price: number;
   description: string;
-  imageUrl: string;
+  image_url: string;
 };
+
+export type TPurchases = {
+  id: string;
+  buyer: string;
+  total_price: number;
+};
+
