@@ -202,7 +202,7 @@ app.get("/purchases/:id", async (req: Request, res: Response) => {
       .innerJoin('products as pr', 'pr.id', 'pp.product_id');
 
       if (!result.length) {
-        res.status(404).send("Purchase not found...");
+        res.status(404).send("Pedido não encontrado...");
         return;
       }
 
