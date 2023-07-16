@@ -5,10 +5,10 @@ O objetivo deste projeto é executar algumas funcionalidades típicas de um banc
 
 ## Índice:
 - <a href="#tecnologias-utilizadas-">Tecnologias utilizadas</a>
-- <a href="#funcionalidades-do-projeto-%EF%B8%8F">Funcionalidades do projeto</a>
+- <a href="#funcionalidades-do-projeto-">Funcionalidades do projeto</a>
 - <a href="#endpoints-">Endpoints</a>
 - <a href="#exemplos-de-funcionalidades-">Exemplos de Funcionalidades</a>
-- <a href="#como-rodar-o-projeto">Como rodar o projeto</a>
+- <a href="#como-rodar-o-projeto-">Como rodar o projeto</a>
 - <a href="#desenvolvedor-">Desenvolvedor</a>
 
 ## Tecnologias Utilizadas 🔬
