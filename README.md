@@ -80,7 +80,7 @@ $ npm run dev
 ```
 
 ## Documentação 📝
-- <a href="https://documenter.getpostman.com/view/26594500/2s946feshP" target="_blank">Documentação do Projeto no Postman</a>
+- [Documentação do Projeto no Postman](https://documenter.getpostman.com/view/26594500/2s946feshP)
 
 ## Desenvolvedor 🤓
 ### Alexandre R. Alonso
