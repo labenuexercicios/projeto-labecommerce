@@ -9,6 +9,7 @@ O objetivo deste projeto é executar algumas funcionalidades típicas de um banc
 - <a href="#endpoints-">Endpoints</a>
 - <a href="#exemplos-de-funcionalidades-">Exemplos de Funcionalidades</a>
 - <a href="#como-rodar-o-projeto-">Como rodar o projeto</a>
+- <a href="#documentação-">Documentação</a>
 - <a href="#desenvolvedor-">Desenvolvedor</a>
 
 ## Tecnologias Utilizadas 🔬
@@ -77,6 +78,9 @@ $ npm run dev
 
 #A aplicação será inicializada na porta 3003; acesse pelo navegador por: http://localhost:3003
 ```
+
+## Documentação 📝
+- [Documentação do Projeto no Postman](https://documenter.getpostman.com/view/26594500/2s946feshP)
 
 ## Desenvolvedor 🤓
 ### Alexandre R. Alonso
