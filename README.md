@@ -4,12 +4,12 @@ O Labecommerce é um projeto de API realizado no contexto do Bootcamp de desenvi
 O objetivo deste projeto é executar algumas funcionalidades típicas de um banco de dados de e-commerce.
 
 ## Índice:
-- <a href="#-tecnologias-utilizadas">Tecnologias utilizadas</a>
-- <a href="#-funcionalidades">Funcionalidades do projeto</a>
-- <a href="#-endpoints">Endpoints</a>
-- <a href="#-exemplos-funcionalidades">Exemplos de Funcionalidades</a>
-- <a href="#-como-rodar">Como rodar o projeto</a>
-- <a href="#-desenvolvedor">Desenvolvedor</a>
+- <a href="#tecnologias-utilizadas-">Tecnologias utilizadas</a>
+- <a href="#funcionalidades-do-projeto-">Funcionalidades do projeto</a>
+- <a href="#endpoints-">Endpoints</a>
+- <a href="#exemplos-de-funcionalidades-">Exemplos de Funcionalidades</a>
+- <a href="#como-rodar-o-projeto">Como rodar o projeto</a>
+- <a href="#desenvolvedor-">Desenvolvedor</a>
 
 ## Tecnologias Utilizadas 🔬
 - Node.js
