@@ -43,7 +43,7 @@ export const createProduct = async (req: Request, res: Response) => {
         }
 
         const [existedProduct] = await db("products").where({ name: name });
-        if (!existedProduct) {
+        if (existedProduct) {
             res.status(400);
             throw new Error("Produto já cadastrado.");
         }
