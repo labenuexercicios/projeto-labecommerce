@@ -43,7 +43,7 @@ export const createUser = async (req: Request, res: Response) => {
         }
 
         const [existedEmail] = await db("users").where({ email: email });
-        if (!existedEmail) {
+        if (existedEmail) {
             res.status(400);
             throw new Error("Email já cadastrado.");
         }
