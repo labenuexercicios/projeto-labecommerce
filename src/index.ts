@@ -54,6 +54,48 @@ app.get("/product", async(req: Request, res: Response) => {
   }
 })
 
+app.get("/products/:id", async (req: Request, res: Response) => {
+  try {
+    const productId = req.params.id;
+
+    const product = await db.select('*').from('products').where('id', productId).first();
+    if (!product) {
+      throw new Error('Produto com o ID fornecido não existe.');
+    }
+
+    res.status(200).json(product);
+  } catch (error: any) {
+    console.error(error);
+    res.status(400).send(error.message);
+  }
+});
+
+app.get("/purchases", async (req: Request, res: Response) => {
+  try {
+    const purchases = await db.select('*').from('purchases');
+    res.status(200).json(purchases);
+  } catch (error: any) {
+    console.error(error);
+    res.status(500).send("Erro ao buscar compras.");
+  }
+});
+
+app.get("/purchases/:id", async (req: Request, res: Response) => {
+  try {
+    const purchaseId = req.params.id;
+
+    const purchase = await db.select('*').from('purchases').where('id', purchaseId).first();
+    if (!purchase) {
+      throw new Error('Compra com o ID fornecido não existe.');
+    }
+
+    res.status(200).json(purchase);
+  } catch (error: any) {
+    console.error(error);
+    res.status(400).send(error.message);
+  }
+});
+
 app.post("/users", async(req: Request, res: Response) => {
   try {
     const id = req.body.id
@@ -97,7 +139,7 @@ app.post("/products", async(req: Request, res: Response) => {
     const name = req.body.name 
     const price = req.body.price 
     const description = req.body.description 
-    const imageUrl = req.body.imageUrl 
+    const image_url = req.body.image_url 
 
     if (typeof id !== "string") {
       throw new Error("id deve ser uma string")
@@ -108,19 +150,19 @@ app.post("/products", async(req: Request, res: Response) => {
     }
 
     if (typeof name !== "string") {
-      throw new Error("id deve ser uma string")
+      throw new Error("name deve ser uma string")
     }
     if (typeof price !== "number") {
-      throw new Error("id deve ser um number")
+      throw new Error("price deve ser um number")
     }
     if (typeof description !== "string") {
-      throw new Error("id deve ser uma string")
+      throw new Error("description deve ser uma string")
     }
-    if (typeof imageUrl !== "string") {
-      throw new Error("id deve ser uma string")
+    if (typeof image_url !== "string") {
+      throw new Error("image deve ser uma string")
     }
 
-    const newProduct = {id, name, price, description, imageUrl}
+    const newProduct = {id, name, price, description, image_url}
     await db('products').insert(newProduct)
     res.status(200).send("Produto cadastrado com sucesso")
   } catch (error: any) {
@@ -128,6 +170,28 @@ app.post("/products", async(req: Request, res: Response) => {
     res.status(400).send(error.message)
   }
 })
+
+app.post("/purchases", async (req: Request, res: Response) => {
+  try {
+    const id = req.body.id
+    const buyer = req.body.buyer
+    const total_price = req.body.total_price
+
+    const existingBuyer = await db.select('*').from('users').where('id', buyer).first();
+    if (!existingBuyer) {
+      throw new Error('Comprador com o ID fornecido não existe.');
+    }
+
+    const newPurchase = { id, buyer, total_price };
+    await db('purchases').insert(newPurchase);
+
+    res.status(200).send("Compra criada com sucesso");
+  } catch (error: any) {
+    console.error(error);
+    res.status(400).send(error.message);
+  }
+});
+
 
 app.delete("/users/:id", async(req: Request, res: Response) => {
   try {
@@ -163,6 +227,23 @@ app.delete("/products/:id", async(req: Request, res: Response) => {
   }
 })
 
+app.delete("/purchases/:id", async (req: Request, res: Response) => {
+  try {
+    const purchaseId = req.params.id;
+
+    const purchase = await db.select('*').from('purchases').where('id', purchaseId).first();
+    if (!purchase) {
+      throw new Error('Compra com o ID fornecido não existe.');
+    }
+
+    await db('purchases').where('id', purchaseId).del();
+    res.status(200).send("Compra apagada com sucesso");
+  } catch (error: any) {
+    console.error(error);
+    res.status(400).send(error.message);
+  }
+});
+
 app.put("/products/:id", async(req: Request, res: Response) => {
   try {
     const idEdit = req.params.id
@@ -171,14 +252,21 @@ app.put("/products/:id", async(req: Request, res: Response) => {
     const newName = req.body.name as string | undefined
     const newPrice = req.body.price as number | undefined
     const newDescription = req.body.description as string | undefined
-    const newImageUrl = req.body.ImageUrl as string | undefined
+    const newImageUrl = req.body.image_url as string | undefined
 
     const existProduct = await db.select('*').from('products').where('id', idEdit).first();
     if (!existProduct) {
       throw new Error('Produto com o ID fornecido não existe.');
     }
 
-    await db('products').where('id', idEdit).update({ newId, newName, newPrice, newDescription, newImageUrl });
+    await db('products').where('id', idEdit).update({ 
+      id: newId,
+      name: newName,
+      price: newPrice,
+      description: newDescription,
+      image_url: newImageUrl
+     });
+
     res.status(200).send("Produto atualizado com sucesso")
   } catch (error: any) {
     console.log(error)

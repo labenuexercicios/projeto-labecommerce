@@ -1,11 +1,11 @@
--- Active: 1689542876750@@127.0.0.1@3306
+-- Active: 1691627648816@@127.0.0.1@3306
 
 CREATE TABLE users (
     id TEXT PRIMARY KEY UNIQUE NOT NULL,
     name TEXT NOT NULL,
     email TEXT UNIQUE NOT NULL,
     password TEXT NOT NULL,
-    created_at TEXT NOT NULL
+    created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%d %H:%M:%S', 'now'))
 );
 
 CREATE TABLE products (
@@ -20,7 +20,7 @@ CREATE TABLE purchases (
     id TEXT PRIMARY KEY UNIQUE NOT NULL,
     buyer TEXT NOT NULL,
     total_price REAL NOT NULL,
-    created_at TEXT NOT NULL,
+    created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%d %H:%M:%S', 'now')),
     FOREIGN KEY (buyer) REFERENCES users(id)
         ON UPDATE CASCADE
         ON DELETE CASCADE
@@ -38,11 +38,11 @@ CREATE TABLE purchases_products (
     ON DELETE CASCADE
 );
 
-INSERT INTO users (id, name, email, password, created_at)
+INSERT INTO users (id, name, email, password)
 VALUES 
-    ('u001', 'user01', 'u001@gmail.com', '234', DATETIME('now')),
-    ('u002', 'user02', 'u002@gmail.com', '234', DATETIME('now')),
-    ('u003', 'user03', 'u003@gmail.com', '234', DATETIME('now'));
+    ('u001', 'user01', 'u001@gmail.com', '234'),
+    ('u002', 'user02', 'u002@gmail.com', '234'),
+    ('u003', 'user03', 'u003@gmail.com', '234');
 
 INSERT INTO products (id, name, price, description, image_url)
 VALUES
@@ -52,11 +52,11 @@ VALUES
     ('p004', 'product04', 19.99, 'sla', 'asdad.com'),
     ('p005', 'product05', 19.99, 'sla', 'asdad.com');
 
-INSERT INTO purchases (id, buyer, total_price, created_at)
+INSERT INTO purchases (id, buyer, total_price)
 VALUES 
-    ('pu001', 'u001', 50.00, '2023-07-12 10:00:00'),
-    ('pu002', 'u002', 100.00, '2023-07-12 10:00:00'),
-    ('pu003', 'u003', 150.00, '2023-07-12 10:00:00');
+    ('pu001', 'u001', 50.00),
+    ('pu002', 'u002', 100.00),
+    ('pu003', 'u003', 150.00);
 
 
 SELECT * FROM users;
