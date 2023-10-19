@@ -118,7 +118,7 @@ As requisições também devem respeitar o que é esperado, você pode confirmar
 
 ### 3. Documentação no Postman de todos os endpoints (obrigatória para correção), descrevendo os endpoints e colocando os exemplos de respostas 
 
-### 4. Criar o arquivo  README.md , explicando seu projeto com prints das respostas
+### 4. Criar o arquivo README.md
 
 Aqui está uma Documentação para referência (como deve ficar)
 https://documenter.getpostman.com/view/21151478/2s8ZDeSdbz
